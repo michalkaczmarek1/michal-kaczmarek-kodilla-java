@@ -43,15 +43,10 @@ public class CollectionTestSuite {
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         //When
         List<Integer> numbers = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
-        List<Integer> evenNumbersTest = new ArrayList<>();
-        for (Integer number: numbers){
-            if(number % 2 == 0){
-                evenNumbersTest.add(number);
-            }
-        }
-        List<Integer> evenNumbers = oddNumbersExterminator.exterminate(numbers);
+        List<Integer> evenNumbersResult = oddNumbersExterminator.exterminate(numbers);
+        List<Integer> evenNumbersExpected = Arrays.asList(2,4,6,8,10);
         System.out.println("Execute testOddNumbersExterminatorNormalList");
         //Then
-        Assertions.assertEquals(evenNumbersTest, evenNumbers);
+        Assertions.assertEquals(evenNumbersExpected, evenNumbersResult);
     }
 }
