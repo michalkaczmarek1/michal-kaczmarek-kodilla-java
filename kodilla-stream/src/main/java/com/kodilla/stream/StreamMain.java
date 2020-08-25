@@ -1,43 +1,39 @@
 package com.kodilla.stream;
 
-import com.kodilla.stream.beautifier.PoemBeautifier;
-import com.kodilla.stream.iterate.NumbersGenerator;
-import com.kodilla.stream.lambda.ExpressionExecutor;
-import com.kodilla.stream.reference.FunctionalCalculator;
+import com.kodilla.stream.book.Book;
+import com.kodilla.stream.book.BookDirectory;
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
 
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StreamMain {
     public static void main(String[] args) {
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();
+        BookDirectory bookDirectory = new BookDirectory();
 
-        System.out.println("Calculating expressions with lambdas");
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a / b);
+        String theResultStringOfBooks = bookDirectory.getList().stream()
+                .filter(book -> book.getYearOfPublication() > 2005)
+                .map(Book::toString)
+                .collect(Collectors.joining(",\n", "<<", ">>"));
 
-        System.out.println("Calculating expressions with method references");
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::multiplyAByB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::addAToB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::subBFromA);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::divideAByB);
+        System.out.println(theResultStringOfBooks);
 
-        //Task 7.1
-        PoemBeautifier poemBeautifier = new PoemBeautifier();
+        //Task 7.3
+        Forum forum = new Forum();
+        LocalDate today = LocalDate.now();
 
-        String example1 = poemBeautifier.beautify("To jest przyklad", (text) -> text.toUpperCase() );
-        String example2 = poemBeautifier.beautify("To jest test", (text) -> text + "ABC" );
-        String example3 = poemBeautifier.beautify("To jest dla zadania", (text) -> "ABC" + text );
-        String example4 = poemBeautifier.beautify("TO JEST PRZYKLAD", (text) -> text.toLowerCase() );
-        String example5 = poemBeautifier.beautify("To jest przypadek testowy", (text) -> text.toUpperCase() + "/CBA/123" );
+        Map<Integer, ForumUser> resultMapofForumUsers = forum.getUserList().stream()
+                .filter(forumUser -> forumUser.getSex() == 'M')
+                .filter(forumUser -> (today.getYear() - forumUser.getDayOfBirthday().getYear()) >= 20)
+                .filter(forumUser -> forumUser.getAmountPosts() >= 1)
+                .collect(Collectors.toMap(ForumUser::getIdUser, forumUser -> forumUser));
 
-        System.out.println(example1);
-        System.out.println(example2);
-        System.out.println(example3);
-        System.out.println(example4);
-        System.out.println(example5);
+        System.out.println("Elements: " + resultMapofForumUsers.size());
+        resultMapofForumUsers.entrySet().stream()
+                .map(integerForumUserEntry -> integerForumUserEntry.getKey() + ": " + integerForumUserEntry.getValue())
+                .forEach(System.out::println);
 
-        System.out.println("Using Stream to generate even numbers from 1 to 20");
-        NumbersGenerator.generateEven(20);
     }
 }

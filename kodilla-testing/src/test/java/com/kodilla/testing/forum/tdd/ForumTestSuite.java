@@ -52,6 +52,12 @@ class ForumTestSuite {
             //When
             ForumPost retrievedPost;
             retrievedPost = forumUser.getPost(0);
+            System.out.println(retrievedPost.getAuthor());
+            System.out.println(thePost.getAuthor());
+            System.out.println(retrievedPost.getPostBody());
+            System.out.println(thePost.getPostBody());
+
+
 
             //Then
             Assertions.assertEquals(thePost, retrievedPost);
