@@ -1,8 +1,10 @@
 package com.kodilla.stream.world;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,8 +14,18 @@ public class WorldTestSuite {
     @Test
     void testGetPeopleQuantity() {
         //Given
-        World world = new World();
+        List<Continent> continentsToTest = new ArrayList<>();
+        continentsToTest.add(new Continent("Europe"));
+        continentsToTest.add(new Continent("Asia"));
+        continentsToTest.add(new Continent("Africa"));
+        continentsToTest.add(new Continent("North America"));
+        continentsToTest.add(new Continent("South America"));
+        continentsToTest.add(new Continent("Australia"));
+        continentsToTest.add(new Continent("Antarctica"));
+
+        World world = new World(continentsToTest);
         List<Continent> continentList = world.getContinents();
+
         continentList.get(0).addCountry(new Country("Poland", new BigDecimal("40000000")));
         continentList.get(0).addCountry(new Country("Spain", new BigDecimal("50000000")));
         continentList.get(1).addCountry(new Country("China", new BigDecimal("1140000000")));
@@ -27,6 +39,7 @@ public class WorldTestSuite {
         continentList.get(5).addCountry(new Country("Australia", new BigDecimal("20000000")));
         continentList.get(5).addCountry(new Country("New Zeland", new BigDecimal("5000000")));
         continentList.get(6).addCountry(new Country("Other", new BigDecimal("1000")));
+
         BigDecimal totalPeopleExpected = new BigDecimal("3125001000");
 
         //When

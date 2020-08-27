@@ -5,20 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class World {
-    private final List<Continent> continents = new ArrayList<>();
+    private final List<Continent> continents;
 
-    public World() {
-        continents.add(new Continent("Europe"));
-        continents.add(new Continent("Asia"));
-        continents.add(new Continent("Africa"));
-        continents.add(new Continent("North America"));
-        continents.add(new Continent("South America"));
-        continents.add(new Continent("Australia"));
-        continents.add(new Continent("Antarctica"));
+    public World(final List<Continent> continents) {
+        this.continents = continents;
     }
 
     public List<Continent> getContinents() {
-        return continents;
+        return new ArrayList<>(continents);
     }
 
     public BigDecimal getPeopleQuantity() {
