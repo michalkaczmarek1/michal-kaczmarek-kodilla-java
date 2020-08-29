@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.stream.Collectors;
@@ -93,23 +94,21 @@ public class BoardTestSuite {
         //When
         List<TaskList> inProgressTasks = new ArrayList<>();
         inProgressTasks.add(new TaskList("In progress"));
-        List<Integer> days = project.getTaskLists().stream()
+        List<Integer> numbersDays = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
                 .map(task -> Period.between(task.getCreated(), LocalDate.now()))
                 .map(d -> d.getDays())
                 .collect(Collectors.toList());
 
-        OptionalDouble averageStream = IntStream.range(days.get(0), days.get(days.size()-1)).average();
+        double ave = IntStream.range(0, numbersDays.size())
+                .map(n -> numbersDays.get(n))
+                .average().getAsDouble();
 
-        double average = Math.round(averageStream.getAsDouble()); // tu jest 10
-
-        System.out.println("Srednia bez zaokraglenia (???): " + averageStream.getAsDouble());// Nie wiem za bardzo dlaczego tak jest (9.5 a nie 10)
-
-        System.out.println("Srednia: " + average);
+        System.out.println("Srednia: " + ave);
 
         //Then
-        assertEquals(10, average);
+        assertEquals(10, ave);
     }
 
     private Board prepareTestData() {
