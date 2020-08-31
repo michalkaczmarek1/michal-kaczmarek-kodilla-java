@@ -13,7 +13,7 @@ public class FileReaderTestSuite {
 
 
         //when & then
-        assertDoesNotThrow(() -> fileReader.readFile("names.txt"));
+        assertDoesNotThrow(() -> fileReader.readFile());
     }
 
     @Test
