@@ -24,9 +24,5 @@ public class OrderProcessor {
             return new OrderDto(rentRequest.getUser(), order);
         }
 
-
-
-
-
     }
 }
