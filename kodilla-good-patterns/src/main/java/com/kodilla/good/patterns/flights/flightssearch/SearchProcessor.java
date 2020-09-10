@@ -17,7 +17,7 @@ public class SearchProcessor {
     }
 
     public SearchResultDto process(String typeSearch, String keyWord) {
-        if(typeSearch == DEPARTURE ) {
+        if(typeSearch.equals(DEPARTURE)) {
             Set<Flight> flightsDepartureCity = searchService.getFlightsByCity(keyWord);
 
             if(flightsDepartureCity.size() > 0 ) {
@@ -32,7 +32,7 @@ public class SearchProcessor {
             }
         }
 
-        if(typeSearch == ARRIVAL) {
+        if(typeSearch.equals(ARRIVAL)) {
             Set<Flight> flightsArrivalCity = searchService.getFlightsByArrivalCity(keyWord);
 
             if (flightsArrivalCity.size() > 0) {
@@ -47,7 +47,7 @@ public class SearchProcessor {
             }
         }
 
-        if(typeSearch == OTHERCITY) {
+        if(typeSearch.equals(OTHERCITY)) {
             Set<Flight> flightsOtherCity = searchService.getFlightsByOtherCity(keyWord);
 
             if(flightsOtherCity.size() > 0) {
