@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class KodillaSpringApplicationTests {
+
 	@Test
 	void testCircleLoadedIntoContainer() {
 		//Given
