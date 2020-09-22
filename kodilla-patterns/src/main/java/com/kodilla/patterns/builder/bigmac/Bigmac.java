@@ -53,10 +53,7 @@ public final class Bigmac {
             availableIngredients.add("prawns");
             availableIngredients.add("chesse");
 
-            if(availableIngredients.contains(ingredient)) {
-                return true;
-            }
-            return false;
+            return availableIngredients.contains(ingredient);
         }
 
         public Bigmac build() {
