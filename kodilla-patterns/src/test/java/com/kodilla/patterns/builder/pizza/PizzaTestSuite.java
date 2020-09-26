@@ -8,7 +8,7 @@ class PizzaTestSuite {
     @Test
     void testPizzaNew() {
         //Given
-        Pizza pizza = new Pizza.PizzaBuilder()
+        Pizza pizza = Pizza.builder()
                 .ingredient("Onion")
                 .bottom("Thin")
                 .sauce("Spicy")

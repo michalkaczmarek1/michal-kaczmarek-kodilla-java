@@ -9,6 +9,10 @@ public final class Pizza {
     private final String sauce;
     private List<String> ingredients = new ArrayList<>();
 
+    public static Pizza.PizzaBuilder builder() {
+        return new Pizza.PizzaBuilder();
+    }
+
     public static class PizzaBuilder {
         private String bottom;
         private String sauce;
@@ -38,12 +42,6 @@ public final class Pizza {
         this.bottom = bottom;
         this.sauce = sauce;
         this.ingredients = new ArrayList<>(ingredients);
-    }
-
-    public Pizza(final String bottom, final String sauce, final String... ingredients) {
-        this.bottom = bottom;
-        this.sauce = sauce;
-        this.ingredients.addAll(Arrays.asList(ingredients));
     }
 
     public String getBottom() {
