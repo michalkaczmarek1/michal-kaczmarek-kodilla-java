@@ -1,15 +1,15 @@
 create table ISSUESLISTS
 (
     ID serial primary key,
-    NAME varchar(50) not null unique
+    NAME varchar(50) character set utf8 not null unique 
 );
 
 create table ISSUES
 (
 	ID serial primary key,
     ISSUESLIST_ID bigint unsigned not null,
-    SUMMARY varchar(50) not null,
-    DESCRIPTION varchar(200) not null,
+    SUMMARY varchar(50) character set utf8 not null ,
+    DESCRIPTION varchar(200) character set utf8 not null,
     USER_ID_ASSIGNEDTO bigint unsigned not null,
     foreign key (ISSUESLIST_ID) references ISSUESLISTS(ID),
     foreign key (USER_ID_ASSIGNEDTO) references USERS(ID)
