@@ -93,8 +93,6 @@ public class TaskListsDaoTestSuite {
         assertEquals(2, tasksLists.size());
 
         //clean up
-        int id1 = tasksLists.get(0).getId();
-        int id2 = tasksLists.get(1).getId();
         taskListsDao.deleteAll();
     }
 
