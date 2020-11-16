@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -19,24 +21,55 @@ class SearchFacadeTest {
     private CompanyDao companyDao;
 
     @Test
-    public void testSearchFacade() {
+    public void testSearchEmployee() {
         //Given
-        Employee johnSmith = new Employee("John", "Smith");
-        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee janKowalski = new Employee("Jan", "Kowalski");
+        Employee janinaNowak = new Employee("Janina", "Nowak");
 
-        Company softwareMachine = new Company("Software Machine");
+        Company streamsoft = new Company("Stremsoft");
 
-        softwareMachine.getEmployees().add(johnSmith);
-        softwareMachine.getEmployees().add(stephanieClarckson);
+        streamsoft.getEmployees().add(janKowalski);
+        streamsoft.getEmployees().add(janinaNowak);
 
+        janKowalski.getCompanies().add(streamsoft);
+        janinaNowak.getCompanies().add(streamsoft);
 
-        johnSmith.getCompanies().add(softwareMachine);
-        stephanieClarckson.getCompanies().add(softwareMachine);
+        companyDao.save(streamsoft);
 
-        companyDao.save(softwareMachine);
+        //When
+        List<Employee> employees = searchFacade.searchEmployee("wa");
 
-        searchFacade.processSearch("Smi", "Mac");
+        //Then
+        assertEquals(2, employees.size());
 
+        //CleanUp
+        companyDao.deleteAll();
+    }
+
+    @Test
+    public void testSearchCompany() {
+        //Given
+        Employee janKowalski = new Employee("Jan", "Kowalski");
+        Employee janinaNowak = new Employee("Janina", "Nowak");
+
+        Company streamsoft = new Company("Streamsoft");
+
+        streamsoft.getEmployees().add(janKowalski);
+        streamsoft.getEmployees().add(janinaNowak);
+
+        janKowalski.getCompanies().add(streamsoft);
+        janinaNowak.getCompanies().add(streamsoft);
+
+        companyDao.save(streamsoft);
+
+        //When
+        List<Company> companies = searchFacade.searchCompany("Stream");
+
+        //Then
+        assertEquals(1, companies.size());
+
+        //CleanUp
+        companyDao.deleteAll();
     }
 
 }

@@ -23,17 +23,13 @@ public class SearchFacade {
         this.companyDao = companyDao;
     }
 
-    public void processSearch(String nameEmployee, String nameCompany) {
-        List<Employee> employees = employeeDao.searchEmployeeByPartName(nameEmployee);
-        LOGGER.info("Search employees finished success. Employees list size: " + employees.size());
+    public List<Employee> searchEmployee(String name) {
+        List<Employee> employees = employeeDao.searchEmployeeByPartName(name);
+        return employees;
+    }
 
-        employees.stream()
-                .forEach(System.out::println);
-
-        List<Company> companies = companyDao.searchCompanyByPartName(nameCompany);
-        LOGGER.info("Search companies finished success. Companies list size: " + companies.size());
-
-        companies.stream()
-                .forEach(System.out::println);
+    public List<Company> searchCompany(String name) {
+        List<Company> companies = companyDao.searchCompanyByPartName(name);
+        return companies;
     }
 }
