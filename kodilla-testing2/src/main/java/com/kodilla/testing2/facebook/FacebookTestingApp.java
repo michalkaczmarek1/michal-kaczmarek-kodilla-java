@@ -4,32 +4,76 @@ import com.kodilla.testing2.config.WebDriverConfig;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class FacebookTestingApp {
     public final static String BUTTON_COOKIES = "u_0_h";
-    public final static String CREATE_ACCOUNT = "u_0_2";
-    public static final String XPATH_WAIT_FOR = "//select[1]";
-    public static final String BIRTHDAY = "//div[@class=\"_5k_5\"]/span/span/select[1]";
-    public static final String MONTHOFBIRTHDAY = "//*[@id=\"month\"]";
-    public static final String YEAROFBIRTHDAY = "//*[@id=\"year\"]";
+    public static final String XPATH_REGISTRY = "//a[@role = \"button\"]";
+    public static final String INPUT_NAME = "firstname";
+    public static final String INPUT_SURNAME = "lastname";
+    public static final String INPUT_EMAIL = "reg_email__";
+    public static final String INPUT_EMAIL_CONFIRM = "reg_email_confirmation__";
+    public static final String INPUT_PASSWORD = "reg_passwd__";
+    public static final String XPATH_SELECT = "//div[@class = \"_5k_5\"]/span/span";
+    public static final String XPATH_SELECT_DAY = "//div[@class = \"_5k_5\"]/span/span/select[1]";
+    public static final String XPATH_SELECT_MONTH = "//div[@class = \"_5k_5\"]/span/span/select[2]";
+    public static final String XPATH_SELECT_YEAR = "//div[@class = \"_5k_5\"]/span/span/select[3]";
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         WebDriver driver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
-        driver.get("https://www.facebook.com/");
+        driver.get("https://facebook.com");
+
+        Thread.sleep(5000);
 
         WebElement buttonCookies = driver.findElement(By.id(BUTTON_COOKIES));
         buttonCookies.click();
 
-        WebElement createAccount = driver.findElement(By.id(CREATE_ACCOUNT));
-        createAccount.click();
+        Thread.sleep(5000);
 
-//
-//        while (!driver.findElement(By.xpath(XPATH_WAIT_FOR)).isDisplayed());
-//
-//        WebElement selectDayCombo = driver.findElement(By.xpath(XPATH_WAIT_FOR));
-//        Select selectDay = new Select(selectDayCombo);
-//        selectDay.selectByIndex(2);
+        WebElement registryButton = driver.findElement(By.xpath(XPATH_REGISTRY));
+        registryButton.click();
+
+        Thread.sleep(5000);
+
+        WebElement inputName = driver.findElement(By.name(INPUT_NAME));
+        inputName.sendKeys("Michal");
+
+        Thread.sleep(3000);
+
+        WebElement inputSurname = driver.findElement(By.name(INPUT_SURNAME));
+        inputSurname.sendKeys("Kaczmarek");
+
+        Thread.sleep(3000);
+
+        WebElement inputEmail = driver.findElement(By.name(INPUT_EMAIL));
+        inputEmail.sendKeys("mi123456ka@gmail.com");
+
+        Thread.sleep(3000);
+
+        WebElement inputEmailConfirm = driver.findElement(By.name(INPUT_EMAIL_CONFIRM));
+        inputEmailConfirm.sendKeys("mi123456ka@gmail.com");
+
+        Thread.sleep(3000);
+
+        WebElement inputPassword = driver.findElement(By.name(INPUT_PASSWORD));
+        inputPassword.sendKeys("Ka123456!");
+
+        Thread.sleep(5000);
+
+        WebDriverWait driverWait = new WebDriverWait(driver, 5);
+        driverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_SELECT)));
+
+        WebElement selectDay = driver.findElement(By.xpath(XPATH_SELECT_DAY));
+        Select birthday = new Select(selectDay);
+        birthday.selectByValue("24");
+        WebElement selectMonth = driver.findElement(By.xpath(XPATH_SELECT_MONTH));
+        Select birthMonth = new Select(selectMonth);
+        birthMonth.selectByValue("6");
+        WebElement selectYear = driver.findElement(By.xpath(XPATH_SELECT_YEAR));
+        Select birthYear = new Select(selectYear);
+        birthYear.selectByValue("1988");
     }
 }
+
